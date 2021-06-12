@@ -1,0 +1,32 @@
+{
+	"name": "Bandas",
+	"properties": {
+		"description": "Bandas criminales a las que pertenecen los presos",
+		"linkedServiceName": {
+			"referenceName": "blobDiplomado",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Hoja1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Descripción (banda criminal).xlsx",
+				"container": "datapenitenciaria"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Descripción (banda criminal)",
+				"type": "String"
+			},
+			{
+				"name": "codigo_interno",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

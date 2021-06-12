@@ -1,0 +1,156 @@
+{
+	"name": "Privados",
+	"properties": {
+		"description": "Datos generales de los presos",
+		"linkedServiceName": {
+			"referenceName": "blobDiplomado",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Hoja1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Consulta amplia.xlsx",
+				"container": "datapenitenciaria"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "codigo_interno",
+				"type": "String"
+			},
+			{
+				"name": "region",
+				"type": "String"
+			},
+			{
+				"name": "unidad",
+				"type": "String"
+			},
+			{
+				"name": "sexo",
+				"type": "String"
+			},
+			{
+				"name": "f_nacimiento",
+				"type": "String"
+			},
+			{
+				"name": "edad",
+				"type": "String"
+			},
+			{
+				"name": "estatura",
+				"type": "String"
+			},
+			{
+				"name": "estado_civil",
+				"type": "String"
+			},
+			{
+				"name": "hijos_vivos",
+				"type": "String"
+			},
+			{
+				"name": "religion",
+				"type": "String"
+			},
+			{
+				"name": "nacionalidad",
+				"type": "String"
+			},
+			{
+				"name": "etnia",
+				"type": "String"
+			},
+			{
+				"name": "lugar_nac",
+				"type": "String"
+			},
+			{
+				"name": "tipo_calle",
+				"type": "String"
+			},
+			{
+				"name": "direccion",
+				"type": "String"
+			},
+			{
+				"name": "tipo_sector",
+				"type": "String"
+			},
+			{
+				"name": "sector",
+				"type": "String"
+			},
+			{
+				"name": "comuna",
+				"type": "String"
+			},
+			{
+				"name": "destino",
+				"type": "String"
+			},
+			{
+				"name": "estado_interno",
+				"type": "String"
+			},
+			{
+				"name": "lee",
+				"type": "String"
+			},
+			{
+				"name": "escribe",
+				"type": "String"
+			},
+			{
+				"name": "educacion",
+				"type": "String"
+			},
+			{
+				"name": "curso_llego",
+				"type": "String"
+			},
+			{
+				"name": "profesion",
+				"type": "String"
+			},
+			{
+				"name": "tiempo_minimo",
+				"type": "String"
+			},
+			{
+				"name": "f_ini_condena",
+				"type": "String"
+			},
+			{
+				"name": "f_fin_condena",
+				"type": "String"
+			},
+			{
+				"name": "fecha_reduccion",
+				"type": "String"
+			},
+			{
+				"name": "tiempo_total_condena",
+				"type": "String"
+			},
+			{
+				"name": "computos_aprobados",
+				"type": "String"
+			},
+			{
+				"name": "ultima_conducta",
+				"type": "String"
+			},
+			{
+				"name": "fecha_ingreso",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,9 @@
+{
+	"name": "factoryDiplomado",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e7dacb2c-8bf4-4a05-badb-467cbbebfb82",
+		"tenantId": "f4963062-1db3-44da-80dd-767b69358ae1"
+	}
+}
