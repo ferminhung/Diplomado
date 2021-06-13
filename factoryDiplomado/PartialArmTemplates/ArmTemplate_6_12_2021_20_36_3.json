@@ -1,0 +1,59 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "factoryDiplomado"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/PrivadosBandas')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Match de Privados y bandas",
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Privados",
+								"type": "DatasetReference"
+							},
+							"name": "sourcePrivados"
+						},
+						{
+							"dataset": {
+								"referenceName": "Bandas",
+								"type": "DatasetReference"
+							},
+							"name": "sourceBandas"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "CosmosDbSqlApiCollectionDiplomado",
+								"type": "DatasetReference"
+							},
+							"name": "sinkPrivados"
+						}
+					],
+					"transformations": [
+						{
+							"name": "JoinPrivadosBandas"
+						}
+					],
+					"script": "source(output(\n\t\tcodigo_interno as string,\n\t\tregion as string,\n\t\tunidad as string,\n\t\tsexo as string,\n\t\tf_nacimiento as string,\n\t\tedad as string,\n\t\testatura as string,\n\t\testado_civil as string,\n\t\thijos_vivos as string,\n\t\treligion as string,\n\t\tnacionalidad as string,\n\t\tetnia as string,\n\t\tlugar_nac as string,\n\t\ttipo_calle as string,\n\t\tdireccion as string,\n\t\ttipo_sector as string,\n\t\tsector as string,\n\t\tcomuna as string,\n\t\tdestino as string,\n\t\testado_interno as string,\n\t\tlee as string,\n\t\tescribe as string,\n\t\teducacion as string,\n\t\tcurso_llego as string,\n\t\tprofesion as string,\n\t\ttiempo_minimo as string,\n\t\tf_ini_condena as string,\n\t\tf_fin_condena as string,\n\t\tfecha_reduccion as string,\n\t\ttiempo_total_condena as string,\n\t\tcomputos_aprobados as string,\n\t\tultima_conducta as string,\n\t\tfecha_ingreso as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> sourcePrivados\nsource(output(\n\t\t{Descripción (banda criminal)} as string,\n\t\tcodigo_interno as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> sourceBandas\nsourcePrivados, sourceBandas join(sourcePrivados@codigo_interno == sourceBandas@codigo_interno,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> JoinPrivadosBandas\nJoinPrivadosBandas sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/codigo'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1) ~> sinkPrivados"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
